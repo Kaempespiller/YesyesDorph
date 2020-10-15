@@ -6,9 +6,10 @@ const user = require('../../Models/user.js');
 
 // "database" med alle vores brugere
 let users = [
-    new user(1, "Brian", "Johnson", "21")
-
-
+    new user(1, "Brian", "Johnson", "21"),
+    new user(2, "Philip", "Jansen", "21"),
+    new user(3, "Thomas", "Fissen", "21"),
+    new user(4, "Jens", "Kasperne", "21")
 ];
 // nu kan vi læse data ud fra en given brugen ud fra et id.
 router.get('/read/:id', function(req, res) {
@@ -65,6 +66,22 @@ router.get('/update', function(req,res) {
     res.status(200).json(users[index]);
 
 });
+// router henviser til const routeren som det også hedder, get bruges til at hente dataen 
+router.get('/delete', function(req,res) {
+        let id = parseInt(req.query.id);
+    
+        let index = users.findIndex(function (user) {
+            return user.id === id;
+        });
+// splice benytter jeg til at fjerne et objekt fyldt med data fra user arrayet
+// splice = remove, bare med mulighed for at gemme det slettede data
+        let deletedUser = users.splice(index, 1);
+        console.log(deletedUser);
+        res.status(200).json(deletedUser[0]);
+        
+
+} );
+
 
 module.exports = router;
 
